@@ -1,0 +1,14 @@
+{
+  "name": "electron-forge-template-electroplate",
+  "version": "0.0.1",
+  "description": "Electroplate dynamic Electron template",
+  "main": "index.js",
+  "author": "Evan Morikawa",
+  "keywords": [
+      "electroplate",
+      "electron",
+      "forge",
+      "starter"
+  ],
+  "license": "MIT"
+}
