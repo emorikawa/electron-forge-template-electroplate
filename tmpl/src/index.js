@@ -1,5 +1,6 @@
 import fs from 'fs'
-import { app, BrowserWindow } from 'electron';
+import path from 'path'
+import { ipcMain, app, BrowserWindow } from 'electron';
 import installExtension, { REACT_DEVELOPER_TOOLS } from 'electron-devtools-installer';
 import { enableLiveReload } from 'electron-compile';
 
@@ -16,18 +17,24 @@ const config = require(path.resolve(__dirname, "..", "config.json"))
 const createWindow = async () => {
   // Create the browser window.
   mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
+    frame: false,
+    width: 1280,
+    height: 795,
+    nodeIntegration: false,
+    webPreferences: {
+      preload: path.resolve(__dirname, "preload.js"),
+      contextIsolation: true,
+    },
   });
 
   // and load the index.html of the app.
   mainWindow.loadURL(config.url);
 
   // Open the DevTools.
-  if (isDevMode) {
-    await installExtension(REACT_DEVELOPER_TOOLS);
-    mainWindow.webContents.openDevTools();
-  }
+  // if (isDevMode) {
+  //   await installExtension(REACT_DEVELOPER_TOOLS);
+  //   mainWindow.webContents.openDevTools();
+  // }
 
   // Emitted when the window is closed.
   mainWindow.on('closed', () => {
@@ -36,6 +43,14 @@ const createWindow = async () => {
     // when you should delete the corresponding element.
     mainWindow = null;
   });
+
+  ipcMain.on("minimize", () => {
+    mainWindow.minimize()
+  })
+
+  ipcMain.on("maximize", () => {
+    mainWindow.maximize()
+  })
 };
 
 // This method will be called when Electron has finished
