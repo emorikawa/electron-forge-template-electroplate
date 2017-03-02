@@ -8,7 +8,6 @@ module.exports = {
     'react-hot-loader@^3.0.0-beta.6',
   ],
   devDependencies: [
-    'electron-prebuilt-compile',
     'babel-plugin-transform-es2015-classes'
   ],
   templateDirectory: path.resolve(__dirname, './tmpl'),
